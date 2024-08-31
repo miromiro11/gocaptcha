@@ -3,7 +3,7 @@ package anticaptcha
 import (
 	"context"
 	"fmt"
-	"github.com/justhyped/gocaptcha"
+	"github.com/miromiro11/gocaptcha"
 	"net/http"
 	"time"
 )

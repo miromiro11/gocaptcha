@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/justhyped/gocaptcha/internal"
+	"github.com/miromiro11/gocaptcha/internal"
 	"io"
 	"net/http"
 	"net/url"

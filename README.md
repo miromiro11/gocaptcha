@@ -3,7 +3,7 @@ An API wrapper for popular captcha solvers such as AntiCaptcha and 2Captcha in G
 
 ## Installation
 ```sh
-go get github.com/justhyped/gocaptcha
+go get github.com/miromiro11/gocaptcha
 ```
 
 ## Support
@@ -19,12 +19,12 @@ Software like XEVil and CapMonster are also supported. You can also implement yo
 using the `IProvider` interface.
 
 ## Usage
-- [2Captcha](https://github.com/justhyped/gocaptcha/blob/main/examples/twocaptcha/main.go)
-- [2Captcha (with custom domain)](https://github.com/justhyped/gocaptcha/blob/main/examples/twocaptcha_custom/main.go)
-- [AntiCaptcha](https://github.com/justhyped/gocaptcha/blob/main/examples/anticaptcha_custom/main.go)
-- [CapMonster Cloud](https://github.com/justhyped/gocaptcha/blob/main/examples/capmonster_cloud/main.go)
-- [AntiCaptcha (with custom domain)](https://github.com/justhyped/gocaptcha/blob/main/examples/anticaptcha_custom/main.go)
-- [Custom provider](https://github.com/justhyped/gocaptcha/blob/main/examples/custom_provider/main.go)
+- [2Captcha](https://github.com/miromiro11/gocaptcha/blob/main/examples/twocaptcha/main.go)
+- [2Captcha (with custom domain)](https://github.com/miromiro11/gocaptcha/blob/main/examples/twocaptcha_custom/main.go)
+- [AntiCaptcha](https://github.com/miromiro11/gocaptcha/blob/main/examples/anticaptcha_custom/main.go)
+- [CapMonster Cloud](https://github.com/miromiro11/gocaptcha/blob/main/examples/capmonster_cloud/main.go)
+- [AntiCaptcha (with custom domain)](https://github.com/miromiro11/gocaptcha/blob/main/examples/anticaptcha_custom/main.go)
+- [Custom provider](https://github.com/miromiro11/gocaptcha/blob/main/examples/custom_provider/main.go)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

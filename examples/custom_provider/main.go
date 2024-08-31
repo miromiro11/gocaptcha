@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/justhyped/gocaptcha"
+	"github.com/miromiro11/gocaptcha"
 )
 
 func main() {
