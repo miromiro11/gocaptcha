@@ -100,6 +100,7 @@ func (a *AntiCaptcha) SolveHCaptcha(ctx context.Context, settings *Settings, pay
 		"websiteKey": payload.EndpointKey,
 		"isInvisible": payload.IsInvisible,
 		"data":        payload.Data,
+		"userAgent":   payload.UserAgent,
 	}
 
 	result, err := a.solveTask(ctx, settings, task)

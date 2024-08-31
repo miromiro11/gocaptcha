@@ -62,4 +62,6 @@ type HCaptchaPayload struct {
 	IsInvisible bool
 
 	Data string
+
+	UserAgent string
 }
