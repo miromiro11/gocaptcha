@@ -58,4 +58,8 @@ type HCaptchaPayload struct {
 	// EndpointKey is the HCaptcha Key
 	// Can be found on the Endpoint URL page
 	EndpointKey string
+
+	IsInvisible bool
+
+	Data string
 }

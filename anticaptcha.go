@@ -98,6 +98,8 @@ func (a *AntiCaptcha) SolveHCaptcha(ctx context.Context, settings *Settings, pay
 		"type":       "HCaptchaTaskProxyless",
 		"websiteURL": payload.EndpointUrl,
 		"websiteKey": payload.EndpointKey,
+		"isInvisible": payload.IsInvisible,
+		"data":        payload.Data,
 	}
 
 	result, err := a.solveTask(ctx, settings, task)
