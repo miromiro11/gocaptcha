@@ -83,6 +83,12 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 		"pageAction": payload.Action,
 	}
 
+	if payload.Proxy != "" {
+		task["proxy"] = payload.Proxy
+		task["type"] = "RecaptchaV3Task"
+	}
+
+
 	result, err := a.solveTask(ctx, settings, task)
 	if err != nil {
 		return nil, err
