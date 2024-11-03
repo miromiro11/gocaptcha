@@ -13,6 +13,9 @@ type RecaptchaV2Payload struct {
 }
 
 type RecaptchaV3Payload struct {
+	// Anchor is the anchor that has Recaptcha Protection
+	Anchor string
+
 	// EndpointUrl is the endpoint that has Recaptcha Protection
 	EndpointUrl string
 
@@ -28,7 +31,8 @@ type RecaptchaV3Payload struct {
 
 	// MinScore defaults to 0.3, accepted values are 0.3, 0.6, 0.9
 	MinScore float32
-
+	
+	// Proxy is the proxy to use for the request
 	Proxy string
 }
 

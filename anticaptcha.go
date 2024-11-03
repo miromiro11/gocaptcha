@@ -88,6 +88,10 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 		task["type"] = "RecaptchaV3Task"
 	}
 
+	if payload.Anchor != "" {
+		task["anchor"] = payload.Anchor
+	}
+
 
 	result, err := a.solveTask(ctx, settings, task)
 	if err != nil {
