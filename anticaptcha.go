@@ -81,6 +81,7 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 		"websiteKey": payload.EndpointKey,
 		"minScore":   payload.MinScore,
 		"pageAction": payload.Action,
+		"userAgent":  payload.UserAgent,
 	}
 
 	if payload.Proxy != "" {

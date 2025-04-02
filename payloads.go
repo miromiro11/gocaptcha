@@ -34,6 +34,9 @@ type RecaptchaV3Payload struct {
 	
 	// Proxy is the proxy to use for the request
 	Proxy string
+
+	// UserAgent is the user agent to use for the request
+	UserAgent string
 }
 
 type TurnstilePayload struct {
