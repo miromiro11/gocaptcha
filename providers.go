@@ -17,4 +17,6 @@ type IProvider interface {
 
 	// SolveTurnstile is the implementation of getting a turnstile token
 	SolveTurnstile(ctx context.Context, settings *Settings, payload *TurnstilePayload) (ICaptchaResponse, error)
+
+	SolveReCaptchaV3Enterprise(ctx context.Context, settings *Settings, payload *RecaptchaV3Payload) (ICaptchaResponse, error)
 }
