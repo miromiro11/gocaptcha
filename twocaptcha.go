@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/miromiro11/gocaptcha/internal"
 	"io"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/miromiro11/gocaptcha/internal"
 )
 
 type TwoCaptcha struct {
@@ -99,6 +100,10 @@ func (t *TwoCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, p
 	result.reportGood = t.report("reportgood", result.taskId, settings)
 	result.reportBad = t.report("reportbad", result.taskId, settings)
 	return result, nil
+}
+
+func (t *TwoCaptcha) SolveReCaptchaV3Enterprise(ctx context.Context, settings *Settings, payload *RecaptchaV3Payload) (ICaptchaResponse, error) {
+	return t.SolveRecaptchaV3(ctx, settings, payload)
 }
 
 func (t *TwoCaptcha) SolveHCaptcha(ctx context.Context, settings *Settings, payload *HCaptchaPayload) (ICaptchaResponse, error) {

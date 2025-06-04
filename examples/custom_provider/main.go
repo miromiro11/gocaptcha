@@ -49,6 +49,11 @@ func (c CustomProvider) SolveTurnstile(ctx context.Context, settings *gocaptcha.
 	panic("implement me")
 }
 
+func (c CustomProvider) SolveReCaptchaV3Enterprise(ctx context.Context, settings *gocaptcha.Settings, payload *gocaptcha.RecaptchaV3Payload) (gocaptcha.ICaptchaResponse, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
 type CustomResponse struct {
 }
 
