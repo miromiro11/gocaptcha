@@ -105,7 +105,7 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 
 func (a *AntiCaptcha) SolveReCaptchaV3Enterprise(ctx context.Context, settings *Settings, payload *RecaptchaV3Payload) (ICaptchaResponse, error) {
 	task := map[string]any{
-		"type":       "ReCaptchaV3Enterprise",
+		"type":       "ReCaptchaV3EnterpriseTask",
 		"websiteURL": payload.EndpointUrl,
 		"websiteKey": payload.EndpointKey,
 		"minScore":   payload.MinScore,
