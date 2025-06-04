@@ -42,6 +42,14 @@ func (c *CaptchaSolver) SolveRecaptchaV3(ctx context.Context, payload *Recaptcha
 	return c.provider.SolveRecaptchaV3(ctx, c.settings, payload)
 }
 
+// SolveReCaptchaV3Enterprise uses the provider to fetch the solution of a captcha.
+//
+// The function returns ICaptchaResponse that has .Solution(), .ReportBad() and .ReportGood() that can be used
+// to get the answer or report the quality of the captcha to the provider.
+func (c *CaptchaSolver) SolveReCaptchaV3Enterprise(ctx context.Context, payload *RecaptchaV3Payload) (ICaptchaResponse, error) {
+	return c.provider.SolveReCaptchaV3Enterprise(ctx, c.settings, payload)
+}
+
 // SolveHCaptcha uses the provider to fetch the solution of a captcha.
 //
 // The function returns ICaptchaResponse that has .Solution(), .ReportBad() and .ReportGood() that can be used
