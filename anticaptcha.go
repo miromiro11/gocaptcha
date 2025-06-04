@@ -93,6 +93,34 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 		task["anchor"] = payload.Anchor
 	}
 
+	result, err := a.solveTask(ctx, settings, task)
+	if err != nil {
+		return nil, err
+	}
+
+	result.reportBad = a.report("/reportIncorrectRecaptcha", result.taskId, settings)
+	result.reportGood = a.report("/reportCorrectRecaptcha", result.taskId, settings)
+	return result, nil
+}
+
+func (a *AntiCaptcha) SolveReCaptchaV3Enterprise(ctx context.Context, settings *Settings, payload *RecaptchaV3Payload) (ICaptchaResponse, error) {
+	task := map[string]any{
+		"type":       "ReCaptchaV3Enterprise",
+		"websiteURL": payload.EndpointUrl,
+		"websiteKey": payload.EndpointKey,
+		"minScore":   payload.MinScore,
+		"pageAction": payload.Action,
+		"userAgent":  payload.UserAgent,
+	}
+
+	if payload.Proxy != "" {
+		task["proxy"] = payload.Proxy
+		task["type"] = "ReCaptchaV3EnterpriseTaskProxyLess"
+	}
+
+	if payload.Anchor != "" {
+		task["anchor"] = payload.Anchor
+	}
 
 	result, err := a.solveTask(ctx, settings, task)
 	if err != nil {
@@ -106,9 +134,9 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 
 func (a *AntiCaptcha) SolveHCaptcha(ctx context.Context, settings *Settings, payload *HCaptchaPayload) (ICaptchaResponse, error) {
 	task := map[string]any{
-		"type":       "HCaptchaTaskProxyless",
-		"websiteURL": payload.EndpointUrl,
-		"websiteKey": payload.EndpointKey,
+		"type":        "HCaptchaTaskProxyless",
+		"websiteURL":  payload.EndpointUrl,
+		"websiteKey":  payload.EndpointKey,
 		"isInvisible": payload.IsInvisible,
 		"data":        payload.Data,
 		"userAgent":   payload.UserAgent,
