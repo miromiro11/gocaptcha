@@ -14,11 +14,15 @@ type ICaptchaResponse interface {
 
 	// ReportGood reports the captcha to be valid if the provider and captcha type support it.
 	ReportGood(ctx context.Context) error
+
+	// UserAgent returns the user agent that was used to solve the captcha
+	UserAgent() string
 }
 
 type CaptchaResponse struct {
 	solution, taskId  string
 	isAlreadyReported bool
+	userAgent         string
 
 	// these are set internally for each captcha type
 	reportGood func(ctx context.Context) error
@@ -27,6 +31,10 @@ type CaptchaResponse struct {
 
 func (a *CaptchaResponse) Solution() string {
 	return a.solution
+}
+
+func (a *CaptchaResponse) UserAgent() string {
+	return a.userAgent
 }
 
 func (a *CaptchaResponse) ReportBad(ctx context.Context) error {

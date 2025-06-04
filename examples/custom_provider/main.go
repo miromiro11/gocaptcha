@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+
 	"github.com/miromiro11/gocaptcha"
 )
 
@@ -62,6 +63,11 @@ func (c CustomResponse) ReportBad(ctx context.Context) error {
 }
 
 func (c CustomResponse) ReportGood(ctx context.Context) error {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (c CustomResponse) UserAgent() string {
 	//TODO implement me
 	panic("implement me")
 }

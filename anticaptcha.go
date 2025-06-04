@@ -180,13 +180,13 @@ func (a *AntiCaptcha) solveTask(ctx context.Context, settings *Settings, task ma
 	}
 
 	for i := 0; i < settings.maxRetries; i++ {
-		answer, err := a.getTaskResult(ctx, settings, taskId)
+		answer, userAgent, err := a.getTaskResult(ctx, settings, taskId)
 		if err != nil {
 			return nil, err
 		}
 
 		if answer != "" {
-			return &CaptchaResponse{solution: answer, taskId: taskId}, nil
+			return &CaptchaResponse{solution: answer, taskId: taskId, userAgent: userAgent}, nil
 		}
 
 		if err := internal.SleepWithContext(ctx, settings.pollInterval); err != nil {
@@ -260,10 +260,11 @@ func (a *AntiCaptcha) createTask(ctx context.Context, settings *Settings, task m
 	return "", nil, errors.New("unexpected taskId type, expecting string or float64")
 }
 
-func (a *AntiCaptcha) getTaskResult(ctx context.Context, settings *Settings, taskId string) (string, error) {
+func (a *AntiCaptcha) getTaskResult(ctx context.Context, settings *Settings, taskId string) (string, string, error) {
 	type antiCapSolution struct {
 		RecaptchaResponse string `json:"gRecaptchaResponse"`
 		Text              string `json:"text"`
+		UserAgent         string `json:"userAgent"`
 	}
 
 	type resultResponse struct {
@@ -276,47 +277,47 @@ func (a *AntiCaptcha) getTaskResult(ctx context.Context, settings *Settings, tas
 	resultData := map[string]string{"clientKey": a.apiKey, "taskId": taskId}
 	jsonValue, err := json.Marshal(resultData)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, a.baseUrl+"/getTaskResult", bytes.NewBuffer(jsonValue))
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	resp, err := settings.client.Do(req)
 	if err != nil {
-		return "", nil
+		return "", "", nil
 	}
 	defer resp.Body.Close()
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	var respJson resultResponse
 	if err := json.Unmarshal(respBody, &respJson); err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	if respJson.ErrorID != 0 {
-		return "", errors.New(respJson.ErrorDescription)
+		return "", "", errors.New(respJson.ErrorDescription)
 	}
 
 	if respJson.Status != "ready" {
-		return "", nil
+		return "", "", nil
 	}
 
 	if respJson.Solution.Text != "" {
-		return respJson.Solution.Text, nil
+		return respJson.Solution.Text, respJson.Solution.UserAgent, nil
 	}
 
 	if respJson.Solution.RecaptchaResponse != "" {
-		return respJson.Solution.RecaptchaResponse, nil
+		return respJson.Solution.RecaptchaResponse, respJson.Solution.UserAgent, nil
 	}
 
-	return "", nil
+	return "", "", nil
 }
 
 func (a *AntiCaptcha) report(path, taskId string, settings *Settings) func(ctx context.Context) error {
