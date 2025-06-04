@@ -105,7 +105,7 @@ func (a *AntiCaptcha) SolveRecaptchaV3(ctx context.Context, settings *Settings, 
 
 func (a *AntiCaptcha) SolveReCaptchaV3Enterprise(ctx context.Context, settings *Settings, payload *RecaptchaV3Payload) (ICaptchaResponse, error) {
 	task := map[string]any{
-		"type":       "ReCaptchaV3EnterpriseTask",
+		"type":       "ReCaptchaV3EnterpriseTaskProxyLess",
 		"websiteURL": payload.EndpointUrl,
 		"websiteKey": payload.EndpointKey,
 		"minScore":   payload.MinScore,
@@ -115,7 +115,7 @@ func (a *AntiCaptcha) SolveReCaptchaV3Enterprise(ctx context.Context, settings *
 
 	if payload.Proxy != "" {
 		task["proxy"] = payload.Proxy
-		task["type"] = "ReCaptchaV3EnterpriseTaskProxyLess"
+		task["type"] = "ReCaptchaV3EnterpriseTask"
 	}
 
 	if payload.Anchor != "" {
